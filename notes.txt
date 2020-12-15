@@ -1,0 +1,136 @@
+
+ISSUES:
+added fixed max width to stop horizontal layout for now. fix this make it work.
+
+vert drag into position works.
+and drag from grid.
+
+addding horizontal - issues all over the place.
+drag from grid will clearly be a nightmare also.
+
+ok, so dragfromgrid - add into the onclick tab handler. should be fine.
+Placing. jesus christ. sort this out.
+tiles - horizontal ones are square?
+
+todo: 
+
+highlight tiles in game - flash on hover - this is set up to go. - check out roundyOPathGenerator
+
+update tiles.location on lacing, might help with record checkings
+findBox. must be given an x and y, relative to the svg element. - 
+... no. there are now two findboxes. one that uses the window and one that's relative to the svg game-grid div
+
+update tile locartion index
+remove data from arrays - dragging out of game
+havewewon?
+flex layout needs to update findBox's parameters > on resize .....
+
+Done
+updat =e circles can't handle null value or current.r
+can't gp here - return to base
+return to base if outside of grid.
+
+
+
+how can it work for touch?
+long press to choose?
+tap on top/left to place tile
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+useful game arrays
+
+boxes/locations
+
+
+
+
+tiles 
+
+
+
+
+solution
+
+
+
+consistency:
+
+store colours as red: 1
+
+colours = {
+    red: 1,
+    green: 0,
+    blue:  0
+
+}
+
+in solution, describe the different circle Locations as a colours object
+
+ie: cyan:
+{
+    red: 0,
+    green: 1,
+    blue: 1
+}
+
+in circleLocations:
+
+{
+    {red: 1, tile: "tile_3"},
+    {green: 0, tile: null},
+    {blue:1, tile: "tile_12"},
+}
+
+when removing a tile from the game grid (repositioning)
+
+updateCirclesRecord(){
+
+    find the index's of the circles that the tile was over.
+    rmove the rgb data.
+
+}
+
+
+
+

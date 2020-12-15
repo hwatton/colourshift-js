@@ -1,0 +1,195 @@
+.container {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.gameFlexContainer{
+  max-width: 600px;
+}
+
+.tilesFlexContainer {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  will-change: opacity;
+}
+
+.gameGridSpace{
+  will-change: opacity;
+  min-height: 400px;
+  min-width: 400px;
+  margin: 5px;
+  
+}
+
+.gridLine{
+  fill: none;
+  stroke: grey;
+  stroke-width: 2px;
+}
+
+.game-grid{
+  height: 98%;
+  width: 98%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5;
+}
+
+.gameFlexContainer {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  will-change: opacity;
+}
+
+.box{
+  box-sizing: border-box;
+  position: relative;
+  height: auto;
+  background-color: none;
+  border-style: solid;
+  border-color: rgb(165, 165, 165);
+  border-width: 1px;
+  border-radius: 25px;
+  margin: 10;
+  mix-blend-mode: screen;
+  fill-opacity: 70%
+}
+
+.tile:hover{
+  border-color: gold;
+  border-width: 1px;
+  
+}
+
+.tile{
+  box-sizing: border-box;
+  margin: 3px;
+  border: grey;
+  border-style: solid;
+  border-width: 1px;
+  mix-blend-mode: screen;
+  fill-opacity: 100%
+}
+
+.movingTile{
+  position: absolute;
+  box-sizing: border-box;
+  margin: 3px;
+  border: grey;
+  border-style: solid;
+  border-width: 1px;
+  mix-blend-mode: screen;
+  fill-opacity: 100%
+
+}
+
+.staticH{
+  
+}
+
+.staticV{
+
+}
+
+.active-spotter {
+stroke: gold;
+}
+
+.inactive-spotter {
+  stroke: none;
+}
+
+.row-spotter{
+  stroke-width: 1px;
+}
+
+.col-spotter{
+  stroke-width: 1px;
+}
+
+
+.tabcontent {
+  display: none;
+  border-top: none;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.tabHolder{
+  min-width: 400px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.tab {
+  overflow: hidden;
+  margin-left: 0;
+  background-color: #f1f1f1;
+  min-width: 310px;
+  max-width: 400px;
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+
+
+@media only screen and (max-width: 500px) {
+
+  .gameGridSpace{
+    will-change: opacity;
+    min-width: 400px;
+    min-height: 400px;
+  }
+
+  .tab{
+    min-width: 180px;
+    margin-left: 0;
+    margin-top: 10;
+  }
+
+  .tabHolder{
+    min-width: 400px;
+  }
+
+}
+
+@media only screen and (max-width: 400px) {
+
+  .gameGridSpace{
+    will-change: opacity;
+    min-width: 280px;
+    min-height: 280px;
+  }
+
+  .tabHolder{
+    min-width: 280px;
+  }
+
+  .tab{
+    min-width: 180px;
+    margin-left: 0;
+    margin-top: 10;
+  }
+
+}
