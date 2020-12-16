@@ -6,7 +6,10 @@ vert drag into position works.
 and drag from grid.
 
 addding horizontal - issues all over the place.
-drag from grid will clearly be a nightmare also.
+drag from grid will clearly be a nightmare also. -  doesn't know when it's off grid
+
+update colspotters (inc remove from gamestate) on drag.on.
+-code in place, but not working.
 
 ok, so dragfromgrid - add into the onclick tab handler. should be fine.
 Placing. jesus christ. sort this out.
