@@ -492,11 +492,15 @@ for (let t = 0; t < vTiles.length; t++) {
     .style("height", sp * 0.8)
     .style("width", sp * 3 - sp * 0.2);
 
-  offsetX = d3.event.x - 6
+/*  offsetX = d3.event.x - 6
   offsetY = d3.event.y - 6
   console.log(tmpId)
   console.log(offsetX)
   console.log(offsetY)
+
+  */
+
+
   //here add svg shapes to vertical tiles:
   let vSVG = vTile.append("svg").attr("width", "100%").attr("height", "100%");
 
@@ -559,7 +563,7 @@ const dragHandlerVertical = d3
     yD = d3.event.y - div._groups[0][0].offsetTop;
 
     let id = div.attr("id");
-    console.log(id);
+    //console.log(id);
 
     entry = tiles.filter((d) => {
       return d.tile_id == id;
@@ -624,12 +628,19 @@ const dragHandlerVertical = d3
 
     //adjustthe x + y, need to add on the padding/margin
 
-    let tmp = findBox(x, y, gameState, sp);
-    // this maths ^^^ possibly could do the lining up better
+    let tmp = findBox(x - 5, y - 5, gameState, sp);
+
+
+
+    // this maths ^^^ possibly could do the lining up better => added -5 for padding
     //rewrite finbox to return "outside"
+
+
     if (tmp != undefined) {
       movingLocation = tmp;
     }
+
+  //  console.log(movingLocation)
     //movingLocation can now be used to find game data
   })
 
@@ -653,7 +664,7 @@ const dragHandlerVertical = d3
     if (movingLocation == "outside") {
       //the div is outside the game
 
-      console.log("outside");
+    //  console.log("outside");
       tmpDiv
         .transition()
         .duration(1000)
@@ -923,6 +934,8 @@ const dragHandlerHorizontal = d3
     if (tmp != undefined) {
       movingLocation = tmp;
     }
+
+    //console.log(movingLocation)
   })
 
   .on("end", function () {
@@ -949,30 +962,24 @@ const dragHandlerHorizontal = d3
     } else {
       let boxNum = parseInt(movingLocation.split("_")[1]);
 
-      /* rewriting this bit - different version needed for horizontal
+      //this next bit has had three rewrites! 
+      // a simple thign to work out, but took 3 goes to get it correct! so hard to visualise!
 
-let shift = (((colObj.length - 1) * size) + boxNum)
+      let thisRow =Math.floor(boxNum / size);
+     // console.log(thisRow) //correct - starts at 0
 
-for (j=0;j<size;j++){
-if(gameState[shift]) {
-  j = 100
-}else{
-  shift = shift-size
-  boxNum = boxNum - size
-}
-}
-
-*/
-      let thisRow = Math.floor(boxNum / size);
       for (j = 0; j < size; j++) {
-        let tmpNum = boxNum + colObj.length;
-        if (tmpNum / size == thisRow) {
+       // console.log(boxNum)
+        let tmpNum = boxNum + colObj.length - 1;
+        if (Math.floor(tmpNum / size) == thisRow) {
           //good it fits in, break out.
           j = 100;
         } else {
           boxNum = boxNum - 1;
         }
       } // for j
+
+
 
       movingLocation = "box_" + boxNum; //final location of top of tile
 
@@ -1124,12 +1131,12 @@ const dragFromGridVertical = d3
     let ggLeft = d3.select(".game-grid")._groups[0][0].offsetLeft;
     let ggTop = d3.select(".game-grid")._groups[0][0].offsetTop;
 
-    console.log(locationData.occ_Tile_V);
+   // console.log(locationData.occ_Tile_V);
 
     //this next line: need to know vertical or horizontal state to know which array to search.
     entry = tiles.find((d) => {
       let t = locationData.occ_Tile_V;
-      console.log(t.substring(1));
+      //console.log(t.substring(1));
       return d.tile_id === t.substring(1);
     });
 
@@ -1213,8 +1220,8 @@ const dragFromGridVertical = d3
 
     let tileIndex = tiles.indexOf(entry);
     tiles[tileIndex].location = "base";
-    console.log(tileIndex);
-    console.log(tiles);
+   // console.log(tileIndex);
+   //  console.log(tiles);
   })
   .on("drag", function () {
     //drag the new div around a bit.
@@ -1232,8 +1239,13 @@ const dragFromGridVertical = d3
     // let offsetX = d3.event.x - d3.select(".game-grid")._groups[0][0].offsetLeft - 6
     // let offsetY = d3.event.y - d3.select(".game-grid")._groups[0][0].offsetTop - 6
 
-    let box_X = d3.event.x - xD;
-    let box_Y = d3.event.y - yD;
+    //let box_X = d3.event.x - xD;
+    //let box_Y = d3.event.y - yD;
+
+    let box_X = d3.select("#tempTile")._groups[0][0].offsetLeft - d3.select(".game-grid")._groups[0][0].offsetLeft + sp/2
+    let box_Y = d3.select("#tempTile")._groups[0][0].offsetTop - d3.select(".game-grid")._groups[0][0].offsetTop + sp/2
+
+
     movingLocation = findBoxSvgClick(box_X, box_Y, gameState, sp);
     //movingLocation is the id of the box it's going back into.
 
@@ -1242,7 +1254,7 @@ const dragFromGridVertical = d3
 
     if (movingLocation == "outside") {
       //move tile to base
-      console.log("outside");
+      // console.log("outside");
       addBackToHolderVertical(entry);
     } else {
       //update everything and move into position
@@ -1315,7 +1327,7 @@ const dragFromGridVertical = d3
           }
 
           // update the occupying tile bit.
-          console.log(entry.tile_id);
+         // console.log(entry.tile_id);
           gameState[posIndex].occ_Tile_V = "#" + entry.tile_id;
 
           if (obj.occ_Tile_H != null) {
@@ -1333,8 +1345,8 @@ const dragFromGridVertical = d3
         tiles[tileIndex].location = movingLocation;
 
         //now the arrays are sorted, move the div.
-        console.log(entry);
-        console.log(movingLocation);
+        // console.log(entry);
+        // console.log(movingLocation);
 
         let obj = gameState.find((o) => o.box_id === movingLocation);
         let posIndex = gameState.indexOf(obj);
@@ -1362,7 +1374,7 @@ const dragFromGridVertical = d3
           updateColSpotters();
         }, 1000);
       } else {
-        console.log("not viable");
+        // console.log("not viable");
 
         //do some stuff, move it back to base
 
@@ -1394,11 +1406,15 @@ const dragFromGridHorizontal = d3
     //remove colour data from gameState
     //updateCirclecolours
 
-    offsetX = d3.event.x - 6;
-    offsetY = d3.event.y - 6;
-    console.log(tmpId);
+    offsetX = d3.event.x - 6 
+    offsetY = d3.event.y - 6 
+
+    console.log(d3.event.x)
+    
 
     tmpId = findBoxSvgClick(offsetX, offsetY, gameState, sp);
+
+    console.log(tmpId);
 
     locationData = gameState.find((d) => {
       return d.box_id === tmpId;
@@ -1407,21 +1423,22 @@ const dragFromGridHorizontal = d3
     let ggLeft = d3.select(".game-grid")._groups[0][0].offsetLeft;
     let ggTop = d3.select(".game-grid")._groups[0][0].offsetTop;
 
-    console.log(locationData.occ_Tile_H);
+   // console.log(locationData.occ_Tile_H);
 
     //this next line: need to know vertical or horizontal state to know which array to search.
     entry = tiles.find((d) => {
       let t = locationData.occ_Tile_H;
-      console.log(t.substring(1));
+      //console.log(t.substring(1));
       return d.tile_id === t.substring(1);
     });
-
+//console.log(entry)
     //now - rechck theat locationdata is the top and left.
 
     locationData = gameState.find((d) => {
       return d.box_id === entry.location;
     });
 
+    //console.log(locationData.box_id);
     //woo. locationData is ACTUALLY the top left box of the tile
     //woo. entry. we found it. after about a million console.logs
 
@@ -1469,30 +1486,41 @@ const dragFromGridHorizontal = d3
       if (gameState[i].occ_Tile_H === "#" + entry.tile_id) {
         gameState[i].occ_Tile_H = null;
         gameState[i].showRow = false;
+console.log(entry.colours[count])
 
-        let rT = d3.max([gameState[i].current.r - entry.colours[count].r, 0]);
-        let gT = d3.max([gameState[i].current.g - entry.colours[count].g, 0]);
-        let bT = d3.max([gameState[i].current.b - entry.colours[count].b, 0]);
+let rT, gT, bT
 
-        //hang on - am I subtracting it twice here?
+if (entry.colours[count]  != null) { // do something with the colour.
 
-        if (rT == 0 && gT == 0 && bT == 0) {
-          console.log("setting it null");
-          gameState[i].current.r = null;
-          gameState[i].current.g = null;
-          gameState[i].current.b = null;
-        } else {
-          console.log("changes colour");
-          gameState[i].current.r = d3.max([gameState[i].current.r - rT, 0]);
-          gameState[i].current.g = d3.max([gameState[i].current.g - gT, 0]);
-          gameState[i].current.b = d3.max([gameState[i].current.b - bT, 0]);
-        } //action the colour
+
+      rT = d3.max([gameState[i].current.r - entry.colours[count].r, 0]);
+      gT = d3.max([gameState[i].current.g - entry.colours[count].g, 0]);
+      bT = d3.max([gameState[i].current.b - entry.colours[count].b, 0]);
+
+
+      if (rT == 0 && gT == 0 && bT == 0) {
+        //if all colours are 0, turn it clear, via null property.
+        console.log("setting it null");
+        gameState[i].current.r = null;
+        gameState[i].current.g = null;
+        gameState[i].current.b = null;
+      } else {
+        console.log("changes colour");
+        gameState[i].current.r = d3.max([gameState[i].current.r - rT, 0]);
+        gameState[i].current.g = d3.max([gameState[i].current.g - gT, 0]);
+        gameState[i].current.b = d3.max([gameState[i].current.b - bT, 0]);
+      } //action the colour
+
+}
+
+
+        
 
         count++;
       }
     }
     updateCircleColours();
-    updateRowSpotters();
+    updateRowSpotters(); // doesn't seem to work
 
     // set the position to base of tiles[entryIndex]
 
@@ -1513,8 +1541,12 @@ const dragFromGridHorizontal = d3
       });
   })
   .on("end", function () {
-    let box_X = d3.event.x - xD;
-    let box_Y = d3.event.y - yD;
+    //let box_X = d3.event.x - xD;
+    //let box_Y = d3.event.y - yD;
+
+    let box_X = d3.select("#tempTile")._groups[0][0].offsetLeft - d3.select(".game-grid")._groups[0][0].offsetLeft + sp/2
+    let box_Y = d3.select("#tempTile")._groups[0][0].offsetTop - d3.select(".game-grid")._groups[0][0].offsetTop + sp/2
+
     movingLocation = findBoxSvgClick(box_X, box_Y, gameState, sp);
 
     if (movingLocation == "outside") {
@@ -1527,7 +1559,7 @@ const dragFromGridHorizontal = d3
 
       let boxNum = parseInt(movingLocation.split("_")[1]);
 
-      let shift = (entry.colours.length - 1) * size + boxNum;
+  /*    let shift = (entry.colours.length - 1) * size + boxNum;
 
       //nicked from draghandler end above.
       for (j = 0; j < size; j++) {
@@ -1536,7 +1568,26 @@ const dragFromGridHorizontal = d3
         } else {
           boxNum = boxNum - 1;
         }
+      } // for j */
+//
+
+let colObj = entry.colours
+
+let thisRow =Math.floor(boxNum / size);
+      console.log(thisRow) //correct - starts at 0
+
+      for (j = 0; j < size; j++) {
+        console.log(boxNum)
+        let tmpNum = boxNum + colObj.length - 1;
+        if (Math.floor(tmpNum / size) == thisRow) {
+          //good it fits in, break out.
+          j = 100;
+        } else {
+          boxNum = boxNum - 1;
+        }
       } // for j
+//
+
 
       movingLocation = "box_" + boxNum; //final location of top of tile
 
@@ -1688,7 +1739,6 @@ function addBackToHolderVertical(data) {
 dragHandlerVertical(vTile)
   vTile.transition().duration(500).style("opacity", "100%");
 
-  dragHandler(vTile);
 }
 
 function addBackToHolderHorizontal(data) {
@@ -1742,9 +1792,9 @@ function addBackToHolderHorizontal(data) {
       d3.select("#tempTile").remove();
     });
 
-  vTile.transition().duration(500).style("opacity", "100%");
+  hTile.transition().duration(500).style("opacity", "100%");
 
-  dragHandler(hTile);
+  dragHandlerHorizontal(hTile);
 }
 
 function findBoxSvgClick(x, y, location_array, boxSize) {
