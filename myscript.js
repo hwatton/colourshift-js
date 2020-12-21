@@ -1049,9 +1049,14 @@ console.log(movingLocation)
   /* WORKING ON THIS BIT. EYSE GOING TO SLEEP. 12/12*/
  // let offsetX = d3.event.x - d3.select(".game-grid")._groups[0][0].offsetLeft - 6
  // let offsetY = d3.event.y - d3.select(".game-grid")._groups[0][0].offsetTop - 6
+ console.log(gameState)
  console.log(d3.select(".game-grid")._groups[0][0].offsetLeft)
- let box_X = d3.event.x -xD// + d3.select(".game-grid")._groups[0][0].offsetLeft
- let box_Y = d3.event.y - yD //+ d3.select(".game-grid")._groups[0][0].offsetTop
+ console.log(d3.select("#tempTile")._groups[0][0].offsetLeft)
+ //let box_X = d3.event.x -xD// + d3.select(".game-grid")._groups[0][0].offsetLeft
+ //let box_Y = d3.event.y - yD //+ d3.select(".game-grid")._groups[0][0].offsetTop
+
+ let box_X = sp/2 + d3.select("#tempTile")._groups[0][0].offsetLeft - d3.select(".game-grid")._groups[0][0].offsetLeft - 0// + d3.select(".game-grid")._groups[0][0].offsetLeft
+ let box_Y = sp/2 + d3.select("#tempTile")._groups[0][0].offsetTop - d3.select(".game-grid")._groups[0][0].offsetTop - 0 //+ d3.select(".game-grid")._groups[0][0].offsetTop
 // add on the offset!
 //^^^^^^^^^^ THESE NUMBERS ARE TOTALLY WRONG.
 svgGrid.append("circle")
@@ -1517,7 +1522,7 @@ vTile.transition()
 .duration(500)
 .style("opacity", "100%")
 
-dragHandler(vTile)
+dragHandlerVertical(vTile)
 
 }
 
@@ -1570,7 +1575,7 @@ vTile.transition()
 .duration(500)
 .style("opacity", "100%")
 
-dragHandler(hTile)
+dragHandlerHorizontal(hTile)
 
 }
 
