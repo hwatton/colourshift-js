@@ -375,7 +375,7 @@ entry = tiles.filter((d)=>{
   /* somewhere around here. now working with hard coded data.*/
 // add a new div with movingTile class
 movingId =  "#" + entry[0].tile_id
-let newTile = d3.select(".gameGridSpace")
+let newTile = d3.select(".game-grid")
   .append("div")
   .attr("id", entry[0].tile_id)
   .attr("class", "movingTile")
@@ -680,7 +680,7 @@ entry = tiles.filter((d)=>{
   })
 
 movingId =  "#" + entry[0].tile_id
-let newTile = d3.select(".gameGridSpace")
+let newTile = d3.select(".game-grid")
   .append("div")
   .attr("id", entry[0].tile_id)
   .attr("class", "movingTile")
@@ -767,10 +767,15 @@ if(gameState[shift]) {
 }
 
 */
+
+
+
+
 let thisRow = Math.floor(boxNum/size)
+
 for (j=0;j<size;j++){
- let tmpNum = boxNum + colObj.length
-if (tmpNum/size == thisRow){
+ let tmpNum = boxNum + colObj.length - 1
+if (Math.floor(tmpNum/size) == (thisRow)){
 //good it fits in, break out.
 j = 100
 }else{
@@ -778,8 +783,10 @@ boxNum = boxNum - 1
 }
 } // for j
 
-movingLocation = "box_" +  boxNum  //final location of top of tile
 
+
+movingLocation = "box_" +  boxNum  //final location of left of tile
+console.log(movingLocation)
 
 let viablePosition = true
 for (i=0;i<colObj.length;i++){
@@ -913,10 +920,12 @@ const dragFromGridVertical = d3.drag()
 
   offsetX = d3.event.x - 6
   offsetY = d3.event.y - 6
-  console.log(tmpId)
+
+  console.log(offsetX)
+  console.log(offsetY)
 
   tmpId = findBoxSvgClick(offsetX, offsetY, gameState, sp)
-
+  console.log(tmpId)
 
   locationData = gameState.find((d)=>{
     return d.box_id === tmpId
@@ -956,7 +965,7 @@ yD = d3.event.y - top
 
 
 movingId =  "#" + entry.tile_id
-let newTile = d3.select(".gameGridSpace")
+let newTile = d3.select(".game-grid")
 .append("div")
 .attr("id", "tempTile")
 .attr("class", "movingTile")
@@ -1030,18 +1039,29 @@ d3.select("#tempTile")
   return (d3.event.x -xD)
 })
 
+let box_X = d3.event.x -xD
+let box_Y = d3.event.y - yD
+ movingLocation = findBoxSvgClick(box_X, box_Y, gameState, sp)
+console.log(movingLocation)
 
 })
 .on("end", function() {
   /* WORKING ON THIS BIT. EYSE GOING TO SLEEP. 12/12*/
  // let offsetX = d3.event.x - d3.select(".game-grid")._groups[0][0].offsetLeft - 6
  // let offsetY = d3.event.y - d3.select(".game-grid")._groups[0][0].offsetTop - 6
+ console.log(d3.select(".game-grid")._groups[0][0].offsetLeft)
+ let box_X = d3.event.x -xD// + d3.select(".game-grid")._groups[0][0].offsetLeft
+ let box_Y = d3.event.y - yD //+ d3.select(".game-grid")._groups[0][0].offsetTop
+// add on the offset!
+//^^^^^^^^^^ THESE NUMBERS ARE TOTALLY WRONG.
+svgGrid.append("circle")
+.attr("cx", box_X)
+.attr("cy", box_Y)
+.attr("r", 5)
 
- let box_X = d3.event.x -xD
- let box_Y = d3.event.y - yD
   movingLocation = findBoxSvgClick(box_X, box_Y, gameState, sp)
 //movingLocation is the id of the box it's going back into.
-
+console.log(movingLocation)
 // here, it would be better to call a function that updates formulae instead of having to write it.
 // pseudo> loadTileToGame(tmpId, tileId) // which also executes updatecCircleCols() at the end
 
@@ -1198,6 +1218,8 @@ const dragFromGridHorizontal = d3.drag()
   offsetX = d3.event.x - 6
   offsetY = d3.event.y - 6
   console.log(tmpId)
+  console.log(offsetX)
+  console.log(offsetY)
 
   tmpId = findBoxSvgClick(offsetX, offsetY, gameState, sp)
 
@@ -1554,7 +1576,6 @@ dragHandler(hTile)
 
 function findBoxSvgClick(x,y,location_array,boxSize){
 
-
       
   let id = "outside"
 for (i=0;i<location_array.length;i++) {
@@ -1563,13 +1584,9 @@ if (x > location_array[i].x && x < (location_array[i].x + boxSize)) {
   //great, correct column
 if (y > location_array[i].y   && y < (location_array[i].y + boxSize)) {
 id = location_array[i].box_id
-console.log(id)
-console.log(location_array[i].x + ", " +location_array[i].y)
 }
 }
 }
-console.log(x + " " + y + "  " +boxSize)
-
 return id
 
 
