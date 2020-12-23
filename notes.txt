@@ -2,18 +2,14 @@
 ISSUES:
 added fixed max width to stop horizontal layout for now. fix this make it work.
 
-vert drag into position works.
-and drag from grid.
+hard to replicate isuue: can get property substring of null. - something is n't 
+being found because it hasn't been updated properly i suspect.
+update colspotters (inc remove from gamestate) on drag.on. - dragfromgridhorizontal
 
-addding horizontal - issues all over the place.
-drag from grid will clearly be a nightmare also. -  doesn't know when it's off grid
+-code in place, but not working. todo
 
-update colspotters (inc remove from gamestate) on drag.on.
--code in place, but not working.
 
-ok, so dragfromgrid - add into the onclick tab handler. should be fine.
-Placing. jesus christ. sort this out.
-tiles - horizontal ones are square?
+
 
 todo: 
 
@@ -29,6 +25,14 @@ havewewon?
 flex layout needs to update findBox's parameters > on resize .....
 
 Done
+vert drag into position works.
+and drag from grid.
+addding horizontal - issues all over the place.
+drag from grid will clearly be a nightmare also. -  doesn't know when it's off grid
+
+ok, so dragfromgrid - add into the onclick tab handler. should be fine.
+Placing. jesus christ. sort this out.
+tiles - horizontal ones are square?
 updat =e circles can't handle null value or current.r
 can't gp here - return to base
 return to base if outside of grid.

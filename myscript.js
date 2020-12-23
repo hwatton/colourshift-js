@@ -1118,6 +1118,8 @@ const dragFromGridVertical = d3
     //remove colour data from gameState
     //updateCirclecolours
 
+    //now add in remove colspotterdata() or something like that.
+
     offsetX = d3.event.x - 6;
     offsetY = d3.event.y - 6;
     console.log(tmpId);
@@ -1213,6 +1215,14 @@ const dragFromGridVertical = d3
         count++;
       }
     }
+
+    //here - remove colSpotter data
+
+    let obj = gameState.find((o) => o.box_id === locationData.box_id);
+    let posIndex = gameState.indexOf(obj);
+    gameState[posIndex].spotters.showCol = false;
+
+
     updateCircleColours();
     updateColSpotters();
 
@@ -1519,6 +1529,11 @@ if (entry.colours[count]  != null) { // do something with the colour.
         count++;
       }
     }
+
+    let obj = gameState.find((o) => o.box_id === locationData.box_id);
+    let posIndex = gameState.indexOf(obj);
+    gameState[posIndex].spotters.showRow = false;
+
     updateCircleColours();
     updateRowSpotters(); // doesn't seem to work
 
