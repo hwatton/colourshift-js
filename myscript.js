@@ -2082,6 +2082,20 @@ function objectToRgbString(obj) {
 
 function updateCircleColours() {
   for (i = 0; i < gameState.length; i++) {
+    let cols = gameState[i].current
+
+if (cols.r === 0 && cols.g === 0 && cols.b === 0) {
+
+  gameState[i].current.r = null
+  gameState[i].current.g = null
+  gameState[i].current.b = null
+  checkThrough()
+}else{
+  checkThrough()
+}
+
+
+function checkThrough() {
     if (gameState[i].current.r != null) {
       //colour it
       let srch = "#" + gameState[i].circle_id;
@@ -2098,8 +2112,10 @@ function updateCircleColours() {
       console.log("blasting it");
 
       d3.select(srch).transition().duration(1000).attr("fill", "none");
-    }
-  }
+    } //if
+  }//checkthrough
+
+  } // for gameState
 }
 
 function colObjFromName(name) {

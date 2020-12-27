@@ -7,7 +7,8 @@ being found because it hasn't been updated properly i suspect.
 update colspotters (inc remove from gamestate) on drag.on. - dragfromgridhorizontal
 
 -code in place, but not working. todo
-
+drag from grid horizontal leaves black circles on remove.
+-use updatecolours - if it fins one that shou;kd be null, it can set to null.
 
 
 
