@@ -1,4 +1,7 @@
-d3.select("body").style("background-color", "white");
+d3.select("body").style("background-color", ()=>{
+  return "white"
+  //return d3.interpolateRainbow(Math.random())
+});
 
 const gameGridDiv = d3
   .select(".gameGridSpace")
